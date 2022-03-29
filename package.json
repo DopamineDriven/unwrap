@@ -1,13 +1,14 @@
 {
   "name": "unwrap-react",
-  "version": "0.2.3",
-  "main": "index.ts",
+  "version": "0.2.7",
+  "main": "index.js",
   "description": "Consume Reacts JSX.IntrinsicElement Props Effortlessly",
   "files": [
-    "unwrap.d.ts",
-    "index.ts"
+    "**/*",
+    "dist/**/*",
+    "dist/**/*"
   ],
-  "types": "**/*.{tsx|d.ts|ts}",
+  "types": "dist/**/*.d.ts",
   "repository": {
     "url": "https://github.com/DopamineDriven/unwrap",
     "type": "git"
@@ -15,7 +16,6 @@
   "bugs": "https://github.com/DopamineDriven/unwrap/issues",
   "scripts": {
     "build": "tsc",
-    "publish": "cd dist && yarn publish && cd ../",
     "version": "npm version "
   },
   "author": "Andrew Ross <andrew@windycitydevs.io>",

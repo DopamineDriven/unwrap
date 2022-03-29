@@ -77,6 +77,20 @@ export declare module Unwrap {
   >
     ? U
     : T;
+
+  type Depth<T> = T extends Function
+    ? T
+    : T extends Array<infer U>
+    ? DepthArr<U>
+    : T extends object
+    ? DepthObj<T>
+    : T | undefined;
+
+  interface DepthArr<T> extends Array<Depth<T>> {}
+
+  type DepthObj<T> = {
+    [P in keyof T]?: Depth<T[P]>;
+  };
   interface UnwrapInterface {
     ReactRecursiveUnwrapped: <
       T extends keyof JSX.IntrinsicElements extends Record<keyof T, infer U>
