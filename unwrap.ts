@@ -54,16 +54,75 @@ import type {
   TimeHTMLAttributes,
   TrackHTMLAttributes,
   VideoHTMLAttributes,
-  WebViewHTMLAttributes
+  WebViewHTMLAttributes,
+  DetailedReactHTMLElement
 } from "react";
 
+export class JSXIntrinsicPropsConstruct {
+  constructor(
+    public consumeJsxComprehensive: ReturnType<
+      Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
+    >
+  ) {}
+  ComprehensiveConditional() {
+    return this.consumeJsxComprehensive;
+  }
+
+  ExplicitConditional(
+    props: Pick<
+      ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>,
+      keyof DetailedHTMLFactory<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+      >
+    >
+  ) {
+    return { ...props };
+  }
+}
+
 export declare module Unwrap {
+  interface Validator<T> {
+    (
+      props: { [key: string]: any },
+      propName: string,
+      componentName: string,
+      location: string,
+      propFullName: string
+    ): Error | null;
+    [nominalTypeHack]?:
+      | {
+          type: T extends infer U ? U : T;
+        }
+      | undefined;
+  }
+  type InferValidatorTarget<V> = V extends Validator<infer T> ? T : any;
+
+  const nominalTypeHack: unique symbol;
+
+  type IsOptional<T> = undefined extends T ? true : false;
+
+  export type RequiredKeys<V> = {
+    [K in keyof V]-?: Exclude<V[K], undefined> extends Validator<infer T>
+      ? IsOptional<T> extends true
+        ? never
+        : K
+      : never;
+  }[keyof V];
+
+  export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
+
+  export type InferPropsInner<V> = {
+    [K in keyof V]-?: InferValidatorTarget<V[K]>;
+  };
+
   /**
    * @type ExciseEnumerble<T> = T extends Array<infer U> ? U : T;
    * @description if T encounters a configuration of the Array variety then and only then will
    * it extend the Array (T in Array<infer U> ) infer the child type U within;
    * if no array is present T is returned unchanged
    */
+
   type ExciseEnumerble<T> = T extends Array<infer U> ? U : T;
 
   type Enumerable<T> = T extends Array<infer U> | infer U
@@ -91,6 +150,18 @@ export declare module Unwrap {
   type DepthObj<T> = {
     [P in keyof T]?: Depth<T[P]>;
   };
+
+  const ReturnExposeIntrinsicElements: <
+    T extends keyof JSX.IntrinsicElements extends Record<keyof T, infer U>
+      ? Record<keyof U, U>
+      : Record<keyof T, T>
+  >({
+    ...jsxProps
+  }: Partial<
+    OmitRecursiveOptionalRecursionAgent<
+      RecursiveOptional<JSX.IntrinsicElements>
+    >
+  >) => typeof jsxProps;
   interface UnwrapInterface {
     ReactRecursiveUnwrapped: <
       T extends keyof JSX.IntrinsicElements extends Record<keyof T, infer U>
@@ -122,20 +193,45 @@ export declare module Unwrap {
     [P in T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>[P];
   };
 
-  type ImplementUnwrapReact<
-    T extends keyof ReturnType<
+  type ExposedJSXIntrinsicElements = ReturnType<
+    Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
+  >;
+
+  const IntrinsicComprehensiveConditional: ({
+    ...props
+  }: ExposedJSXIntrinsicElements) => {
+    [P in keyof typeof props]?: typeof props[P];
+  };
+  function IntrinsicComprehensiveRequired({
+    ...props
+  }: {
+    [P in keyof ReturnType<
       Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
-    >,
-    _implements = ({
-      ...props
-    }: Partial<
-      OmitRecursiveOptionalRecursionAgent<
-        RecursiveOptional<JSX.IntrinsicElements>
-      >
-    >) => typeof props extends Record<keyof typeof props, infer U>
-      ? Record<keyof U, U>
-      : Record<keyof typeof props, typeof props>
-  > = T[keyof T];
+    >]-?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>[P];
+  }): typeof props;
+  type ImplementUnwrapReact<
+    _implements = (
+      props: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
+    ) => {
+      [P in keyof typeof props]: typeof props[Exclude<P, undefined>];
+    }
+  > = {
+    [R in keyof ReturnType<
+      (
+        props: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
+      ) => { [P in keyof R]: R[Exclude<P, undefined>] }
+    >]: { [L in keyof R]: R[L] };
+  };
+  //     ? Record<keyof U, U>
+  //     : Record<keyof typeof props, typeof props>[keyof typeof props] }}  = ReturnType<
+  //   (
+  //     props: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
+  //   ) => {
+  //     [P in keyof typeof props]: typeof props[Exclude<P, undefined>];
+  //   } extends Record<keyof typeof props, infer U>
+  //     ? Record<keyof U, U>
+  //     : Record<keyof typeof props, typeof props>[keyof typeof props]
+  // >;
 
   type HTMLElementUnion =
     | HTMLAnchorElement
@@ -263,7 +359,12 @@ export declare module Unwrap {
     T extends HTMLAttributesUnion<H>
   > = {
     [L in keyof DetailedHTMLProps<T, H>]?: DetailedHTMLProps<T, H>[L];
-  };
+  }; // type UnwrapHtmlUnion<
+  //   H extends HTMLElementUnion,
+  //   T extends DetailedHTMLFactory<HTMLAttributesUnion<H>, H>
+  // > = {
+  //     [L in keyof T]?: Exclude<T[L], undefined> extends DetailedReactHTMLElement<DetailedHTMLProps<HTMLAttributesUnion<{[W in keyof H]: H[W]}>, H>, H>
+  // };
 
   type SvgElementUnion =
     | SVGAElement
