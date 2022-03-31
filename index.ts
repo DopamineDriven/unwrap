@@ -651,19 +651,25 @@ const JsxComprehensive = ({
   const {} = code!;
 };
 
-const foreach = (props: string[]) => {
-  return props.forEach((value, i) => {
-    return {
-      [i++]: value
-    }
-  
-  });
-  
-}
-const SelectTargetedElements = <T extends keyof ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>>(props: Pick<ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>, T>) => ({ ...props });
 
-interface YYZ extends ReturnType<typeof SelectTargetedElements extends infer U ? U : typeof SelectTargetedElements> { 
+const SelectTargetedElements = <
+  T extends keyof ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>
+>(
+  props: Pick<ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>, T>
+) => ({ ...props });
 
-}
 
-const yyyyyyyyyyy = ({a, base}: YYZ) => {a}
+interface YYZ
+  extends ReturnType<
+    typeof SelectTargetedElements extends infer U
+      ? U
+      : typeof SelectTargetedElements
+  > {}
+
+const yyyyyyyyyyy = ({
+  a,
+  base,
+  feDiffuseLighting
+}: ReturnType<typeof SelectTargetedElements>) => {
+  a;
+};
