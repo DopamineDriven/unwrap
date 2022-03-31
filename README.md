@@ -1,417 +1,74 @@
 # unwrap-react
 
-## JS only users -- several imports available for use (see below)
+## Consume JSX.IntrinsicElement Props *Effortlessly*
 
-```jsx
-import Unwrap from "unwrap-react";
-import { JSXIntrinsicPropsConstruct } from "unwrap-react/unwrap";
+### This package should be installed as a Development Dependency
 
-export const JSXExposed = () =>
-  new JSXIntrinsicPropsConstruct({
-    a,
-    input,
-    label,
-    textarea,
-    div,
-    fieldset,
-    form,
-    button,
-    blockquote,
-    h2,
-    h1,
-    h4,
-    p,
-    pre,
-    span,
-    feImage,
-    image,
-    img,
-    svg,
-    path,
-    g
-  });
-
-const useReturnExposeIntrinsicElements = (
-  props = Unwrap.ReturnExposeIntrinsicElements()
-) => {
-  const visualizeReturnedProps = {
-    ...props
-  };
-  return (
-    <>
-      <div
-        lang={props?.div?.lang ? props.div.lang : "json"}
-        className={cn(
-          `font-interVar container max-w-6xl justify-center mx-auto fit min-h-48 break-normal flex-wrap`,
-          props?.div?.className ? props.div.className : ""
-        )}
-        {...props?.div}>
-        <pre
-          className='container flex-col mx-auto text-[0.75rem] flex-grow text-left bg-[#151515] leading-[1.29rem] min-w-full text-yellow-400 break-normal w-4xl w-fit-4xl overflow-x-clip '
-          {...props?.pre}>
-          {JSON.stringify({ ...visualizeReturnedProps }, null, 2)}
-        </pre>
-      </div>
-    </>
-  );
-};
-
-useReturnExposeIntrinsicElements({
-  a: {
-    title:
-      "access 175 IntrinsicElements and their nested attributes anywhere 🎉 "
-  },
-  div: {
-    children: () => (
-      <>
-        <title>
-          {"embed the children prop of a given element with returned JSX 👀 "}
-        </title>
-        <aside>{"This is 100% JS, no typescript required"}</aside>
-      </>
-    )
-  }
-});
-
+```bash
+npm i --dev unwrap-react
 ```
 
-## Introducing New Feaetures in v0.3.0
-
-- Instantiate the new `JSXIntrinsicPropsConstruct` class by extending its import in a function:
-
-```tsx
-export const OptimizedImportOfClass = <
-  T extends import("unwrap-react/unwrap").JSXIntrinsicPropsConstruct
->(
-  instantiatedConstruct: T
-) => {
-  const {
-    consumeJsxComprehensive: {
-      address,
-      form,
-      fieldset,
-      input,
-      label,
-      button,
-      a,
-      span,
-      p,
-      div,
-      h1,
-      h2,
-      h4,
-      title,
-      svg,
-      g,
-      path,
-      foreignObject,
-      caption
-    }
-  } = instantiatedConstruct;
-  return {
-    address,
-    form,
-    fieldset,
-    input,
-    label,
-    button,
-    a,
-    span,
-    p,
-    div,
-    h1,
-    h2,
-    h4,
-    title,
-    svg,
-    g,
-    path,
-    foreignObject,
-    caption
-  };
-};
+```bash
+yarn add -D unwrap-react
 ```
 
-### Use Type Helpers to Unwrap returned Divs until more features are released
-
-```ts
-export interface FieldsReturnedByJsxConstruct
-  extends ReturnType<
-    typeof OptimizedImportOfClass extends infer U
-      ? U
-      : typeof OptimizedImportOfClass[keyof typeof OptimizedImportOfClass]
-  > {}
-```
-
-### Consume the Returned Type Properties
-
-- Create as many of the returned element as you'd like -- for example, divs alpha through omega below
-
-```tsx
-export const Consumption = ({
-  a: registerAnchor,
-  a: faqAnchor,
-  a: privacyPolicyAnchor,
-  button: loadingButton,
-  button: disabledButton,
-  button: submitButton,
-  h1: homeH1Heading,
-  h1: aboutH1Heading,
-  h1: dynamicH1Heading,
-  input: emailInput,
-  input: passwordInput,
-  input: rememberMeInput,
-  input: forgotPasswordInput,
-  form: loginForm,
-  label: emailLabel,
-  label: passwordLabel,
-  label: rememberMeLabel,
-  label: forgotPasswordLabel,
-  div: divAlpha,
-  div: divBeta,
-  div: divGamma,
-  div: divDelta,
-  div: divEpsilon,
-  div: divZeta,
-  div: divEta,
-  div: divTheta,
-  div: divIota,
-  div: divKappa,
-  div: divLambda,
-  div: divMu,
-  div: divNu,
-  div: divXi,
-  div: divOmicron,
-  div: divPi,
-  div: divRho,
-  div: divSigma,
-  div: divTau,
-  div: divUpsilon,
-  div: divPhi,
-  div: divChi,
-  div: divPsi,
-  div: divOmega
-}: FieldsReturnedByJsxConstruct) => {
-  const submitButtonRef = useRef<typeof submitButton>(
-    submitButton
-  ) as MutableRefObject<typeof submitButton>;
-  return (
-    <div
-      className={cn(
-        divAlpha?.className ??
-          "fallback bg-gray-800/80 text-blue-700/80 font-interVar tracking-[0.025rem] leading-[1.125rem] text-[1.45rem] mx-auto relative"
-      )}
-      {...divAlpha}>
-      <form onSubmit={loginForm?.onSubmit}>
-        <input
-          {...emailInput}
-          className={cn("appearance-none", emailInput?.className ?? "")}
-        />
-        <div
-          {...divOmega}
-          about='I am the omega div! My properties are absolute, nestled at the core of your returned JSX 🎨'
-          className={cn(
-            "absolute origin-center",
-            divOmega?.className ? divOmega.className : ""
-          )}
-        />
-      </form>
-    </div>
-  );
-};
-```
-
-#### Consumption (above) as Inferred By Intelisense
-
-```ts
-const Consumption: ({ a: registerAnchor, a: faqAnchor, a: privacyPolicyAnchor, button: loadingButton, button: disabledButton, button: submitButton, h1: homeH1Heading, h1: aboutH1Heading, h1: dynamicH1Heading, input: emailInput, input: passwordInput, input: rememberMeInput, input: forgotPasswordInput, form: loginForm, label: emailLabel, label: passwordLabel, label: rememberMeLabel, label: forgotPasswordLabel, div: divAlpha, div: divBeta, div: divGamma, div: divDelta, div: divEpsilon, div: divZeta, div: divEta, div: divTheta, div: divIota, div: divKappa, div: divLambda, div: divMu, div: divNu, div: divXi, div: divOmicron, div: divPi, div: divRho, div: divSigma, div: divTau, div: divUpsilon, div: divPhi, div: divChi, div: divPsi, div: divOmega }: FieldsReturnedByJsxConstruct) => JSX.Element
-```
-
-## Introducing a new even easier to use helper
-
-```ts
-const JsxComprehensive: ({
-  abbr,
-  a,
-  address,
-  animate,
-  animateMotion,
-  animateTransform,
-  area,
-  article,
-  aside,
-  audio,
-  b,
-  base,
-  bdi,
-  bdo,
-  big,
-  blockquote,
-  body,
-  br,
-  button,
-  canvas,
-  caption,
-  circle,
-  cite,
-  clipPath,
-  code,
-  col,
-  colgroup,
-  data,
-  datalist,
-  dd,
-  defs,
-  del,
-  desc,
-  details,
-  dfn,
-  dialog,
-  div,
-  dl,
-  dt,
-  ellipse,
-  em,
-  embed,
-  feBlend,
-  feColorMatrix,
-  feComponentTransfer,
-  feComposite,
-  feConvolveMatrix,
-  feDiffuseLighting,
-  feDisplacementMap,
-  feDistantLight,
-  feDropShadow,
-  feFlood,
-  feFuncA,
-  feFuncB,
-  feFuncG,
-  feFuncR,
-  feGaussianBlur,
-  feImage,
-  feMerge,
-  feMergeNode,
-  feMorphology,
-  feOffset,
-  fePointLight,
-  feSpecularLighting,
-  feSpotLight,
-  feTile,
-  feTurbulence,
-  fieldset,
-  figcaption,
-  figure,
-  filter,
-  footer,
-  foreignObject,
-  form,
-  g,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  head,
-  header,
-  hgroup,
-  hr,
-  html,
-  i,
-  iframe,
-  image,
-  img,
-  input,
-  ins,
-  kbd,
-  keygen,
-  label,
-  legend,
-  li,
-  line,
-  linearGradient,
-  link,
-  main,
-  map,
-  mark,
-  marker,
-  mask,
-  menu,
-  menuitem,
-  meta,
-  metadata,
-  meter,
-  mpath,
-  nav,
-  noindex,
-  noscript,
-  object,
-  ol,
-  optgroup,
-  option,
-  output,
-  p,
-  param,
-  path,
-  pattern,
-  picture,
-  polygon,
-  polyline,
-  pre,
-  progress,
-  q,
-  radialGradient,
-  rect,
-  rp,
-  rt,
-  ruby,
-  s,
-  samp,
-  script,
-  section,
-  select,
-  slot,
-  small,
-  source,
-  span,
-  stop,
-  strong,
-  style,
-  sub,
-  summary,
-  sup,
-  svg,
-  switch: { ...switchProps },
-  symbol,
-  table,
-  tbody,
-  td,
-  template,
-  text,
-  textPath,
-  textarea,
-  tfoot,
-  th,
-  thead,
-  time,
-  title,
-  tr,
-  track,
-  tspan,
-  u,
-  ul,
-  use,
-  var: { ...varProps },
-  video,
-  view,
-  wbr,
-  webview
-}: ReturnType<typeof Unwrap.ReturnExposeIntrinsicElements>) => void;
+```bash
+pnpm add -D unwrap-react
 ```
 
 ---
 
-## Consume JSX.IntrinsicElement Props Effortlessly
+## JS-Only-Devs -- New JS-Friendly Helpers
+
+- Example: a DataInspector component (children = ReactNode)
+
+```jsx
+import JsxHelper, { JsHelperElementsFunc } from "unwrap-react/js-helpers";
+import cn from "classnames";
+
+// using the JsHelperElementsFunc
+export const DataInspectorOne = (props = JsHelperElementsFunc(), children) => {
+  return (
+    <div
+      lang={props.div?.lang ? props.div.lang : "json"}
+      className={cn(
+        `font-interVar container max-w-6xl justify-center mx-auto fit min-h-48 break-normal flex-wrap`,
+        props.div?.className ? props.div.className : ""
+      )}
+      {...props.div}>
+      <pre
+        className='container flex-col mx-auto text-[0.75rem] flex-grow text-left bg-[#151515] leading-[1.29rem] min-w-full text-yellow-400 break-normal w-4xl w-fit-4xl overflow-x-clip '
+        {...props.pre}>
+        {children ?? <></>}
+      </pre>
+    </div>
+  );
+};
+
+// using the JsxHelper
+export const DataInspectorTwo = (props = JsxHelper, children) => {
+  return (
+    <div
+      lang={props.div?.lang ? props.div.lang : "json"}
+      className={cn(
+        `font-interVar container max-w-6xl justify-center mx-auto fit min-h-48 break-normal flex-wrap`,
+        props.div?.className ? props.div.className : ""
+      )}
+      {...props.div}>
+      <pre
+        className='container flex-col mx-auto text-[0.75rem] flex-grow text-left bg-[#151515] leading-[1.29rem] min-w-full text-yellow-400 break-normal w-4xl w-fit-4xl overflow-x-clip '
+        {...props.pre}>
+        {children ?? <></>}
+      </pre>
+    </div>
+  );
+};
+
+```
+
+---
+
+## TypeScript Users 🚀
 
 ```tsx
 import { VFC, FC } from "react";
@@ -434,8 +91,8 @@ export const Example: FC<
 );
 
 export const Consume: VFC<
-  Unwrap.ReactUnwrapped<"a" | "b" | "sub" | "sup" | "h1" | "em" | "div">
-> = ({ b, h1, sup, sub, a, em, div }) => {
+  Unwrap.ReactUnwrapped<"a" | "b" | "sub" | "sup" | "h1" | "h2" | "em" | "div">
+> = ({ b, h1, h2, sup, sub, a, em, div }) => {
   return (
     <>
       <div {...div}>inject props any way you want...</div>
@@ -465,17 +122,153 @@ export const Consume: VFC<
             : "fallback because you forgot to set the defaultValue, dummy 🎉",
           ...h1
         }}>
-        <h1 {...h1}>
+        <h2 {...h2}>
           This Library is 100% unopinionated; why?&nbsp;
           <b {...b}>Endless Flexibility</b>&nbsp; -- <em {...em}>You Decide</em>
           &nbsp;<sub {...sub}>SubScript Tags</sub>&nbsp;
           <sup {...sup}>SuperScript Tags</sup>
-        </h1>
+        </h2>
       </Example>
     </>
   );
 };
 ```
+
+## Version 0.4.0 introduces a new, easy to use, global const -- `JsxHelper` -- **JS-Only-Friendly**
+
+```ts
+import { IntrinsicComprehensiveConditional } from "./unwrap";
+
+export const JsHelperElementsFunc = (
+  props = IntrinsicComprehensiveConditional
+) => {
+  return IntrinsicComprehensiveConditional({ ...props });
+};
+
+export type JsHelperReturnForExport = ReturnType<typeof JsHelperElementsFunc>;
+
+export const JsxComprehensiveConditional = (
+  props: JsHelperReturnForExport
+) => ({ ...props });
+
+export const JsxHelper = JsxComprehensiveConditional(
+  JsHelperElementsFunc(IntrinsicComprehensiveConditional)
+);
+
+export default JsxHelper;
+
+```
+
+### Use `OOElementSelection` or `PickElementSelection<T>` types for enhanced OOP when targeting a single element
+
+- the `OOElementSelection` type is equal to `Required<SelectTargetedElement>` which does not persist the `Required<T>` generic beyond the superficial-most application (the parent itself)
+- the `PickElementSelection<T>` type unionizes embedded prop types if multiple parents are targeted; this helper works best for a single element, otherwise non-scalar DOMAttributes such as `onClick` are assigned multiple types in the form of a union
+- takeaway: with `PickElementSelection<T>` the parent-level unionization persists with depth, merging 1:1 type overlap while unionizing imperfect type overlap)
+
+```tsx
+import Unwrap from "unwrap-react";
+import { OOElementSelection, PickElementSelection } from "unwrap-react/unwrap";
+
+export const PickSingleElementPureOOP = ({
+  a: { about, accessKey, onChange, ...rest }
+}: OOElementSelection) => {
+  return {
+    targeted: {
+      about,
+      accessKey,
+      onChange
+    },
+    exhaustive: (
+      <a {...rest} about={about} accessKey={accessKey} onChange={onChange} />
+    )
+  };
+};
+
+export const PickSingleElementUnion = ({
+  about,
+  accessKey,
+  onChange,
+  ...rest
+}: PickElementSelection<"a">) => {
+  return {
+    targeted: {
+      about,
+      accessKey,
+      onChange
+    },
+    exhaustive: (
+      <a {...rest} about={about} accessKey={accessKey} onChange={onChange} />
+    )
+  };
+};
+```
+
+### Multiple Elements Targeted -- Which Helper to Choose?
+
+- The `OOElementSelection` type employed by const `PureGracefulOOP` provides a clear approach
+
+- The `PickElementSelection<T>` type deeply unionizes each given parents DOMAttributes via the `UnionizedClusterF` const below
+
+- `PureGracefulOOP` doesn't unionize DOMAttributes returned by each targeted parent element like `UnionizedClusterF` does
+
+- Use the `OOElementSelection` type for a vastly superior DX when targeting multiple elements
+- `ReactUnwrapped<T>` or `OOElementSelection` should be used when targeting more than one element unless you're doing something oddly specifc (in which case I'd love to see it, PRs welcomed)
+
+```tsx
+// ✔ do do this -- clean + intuitive
+export const PureGracefulOOP = ({
+  a,
+  div,
+  button,
+  pre,
+  i
+}: OOElementSelection) => {
+  return (
+    <i {...i}>
+      <pre {...pre}>
+        {JSON.stringify(
+          {
+            exhaustive: <a {...a} />,
+            divExhaustive: <div {...div} />,
+            buttonExhaustive: <button {...button} />
+          },
+          null,
+          2
+        )}
+      </pre>
+    </i>
+  );
+};
+
+// ⛔ don't do this...dirty + mandatory type assertion
+export const UnionizedClusterF = ({
+  ...rest
+}: PickElementSelection<"a" | "div" | "button" | "pre" | "i">) => {
+  return (
+    <i {...(rest as HTMLAttributes<HTMLElement>)}>
+      <pre {...(rest as HTMLAttributes<HTMLPreElement>)}>
+        {JSON.stringify(
+          {
+            exhaustive: (
+              <a {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)} />
+            ),
+            divExhaustive: (
+              <div {...(rest as HTMLAttributes<HTMLDivElement>)} />
+            ),
+            buttonExhaustive: (
+              <button {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)} />
+            )
+          },
+          null,
+          2
+        )}
+      </pre>
+    </i>
+  );
+};
+```
+
+## Another Simple example
 
 ```tsx
 import * as React from "react";
@@ -505,3 +298,5 @@ export const InjectEmailInput = ({
   InputHTMLAttributes<HTMLInputElement>
 >) => <input {...props} />;
 ```
+
+---

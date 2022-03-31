@@ -1,2 +1,4 @@
 .env
 .github
+node_modules
+readmenotes.md
