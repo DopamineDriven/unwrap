@@ -8,7 +8,7 @@ import { JSXIntrinsicPropsConstruct } from "unwrap-react/unwrap";
 
 export const JSXExposed = () =>
   new JSXIntrinsicPropsConstruct({
-    a: { "aria-activedescendant": "a" },
+    a,
     input,
     label,
     textarea,
@@ -40,15 +40,15 @@ const useReturnExposeIntrinsicElements = (
   return (
     <>
       <div
-        lang={div?.lang ? div.lang : "json"}
+        lang={props?.div?.lang ? props.div.lang : "json"}
         className={cn(
           `font-interVar container max-w-6xl justify-center mx-auto fit min-h-48 break-normal flex-wrap`,
-          div?.className ? div.className : ""
+          props?.div?.className ? props.div.className : ""
         )}
-        {...div}>
+        {...props?.div}>
         <pre
           className='container flex-col mx-auto text-[0.75rem] flex-grow text-left bg-[#151515] leading-[1.29rem] min-w-full text-yellow-400 break-normal w-4xl w-fit-4xl overflow-x-clip '
-          {...pre}>
+          {...props?.pre}>
           {JSON.stringify({ ...visualizeReturnedProps }, null, 2)}
         </pre>
       </div>
