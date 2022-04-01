@@ -1,4 +1,4 @@
-import { IntrinsicComprehensiveConditional } from "./unwrap";
+import Unwrap, { IntrinsicComprehensiveConditional } from "./unwrap";
 
 export const JsHelperElementsFunc = (
   props = IntrinsicComprehensiveConditional
@@ -15,5 +15,10 @@ export const JsxComprehensiveConditional = (
 export const JsxHelper = JsxComprehensiveConditional(
   JsHelperElementsFunc(IntrinsicComprehensiveConditional)
 );
+
+export const { ...destructuredIntrinsicElements } =
+  Unwrap.IntrinsicComprehensiveConditional({
+    ...IntrinsicComprehensiveConditional
+  });
 
 export default JsxHelper;
