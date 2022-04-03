@@ -57,6 +57,7 @@ import type {
   WebViewHTMLAttributes
 } from "react";
 
+
 export const IntrinsicComprehensiveRequired = ({
   ...props
 }: {
@@ -101,30 +102,25 @@ export interface SelectTargetedElementOOP
 
 export type OOElementSelection = Required<SelectTargetedElementOOP>;
 
-export function HTMLFactoryUnwrapped<
-  T extends Pick<Unwrap.HTMLElementUnion, keyof Unwrap.HTMLElementUnion>,
-  P extends Pick<
-    Unwrap.HTMLAttributesUnion<T>,
-    keyof Unwrap.HTMLAttributesUnion<T>
-  >
->(
+export function HTMLFactoryUnwrapped<T extends Pick<Unwrap.HTMLElementUnion, keyof Unwrap.HTMLElementUnion>, P extends Pick<Unwrap.HTMLAttributesUnion<T>, keyof Unwrap.HTMLAttributesUnion<T>>>(
   props: Unwrap.UnwrapPick<
-    ReturnType<DetailedHTMLFactory<P, T>>,
-    keyof ReturnType<DetailedHTMLFactory<P, T>>
-  >
-) {
-  return { ...props } as Unwrap.UnwrapPick<
-    React.DOMElement<P, T>,
-    keyof React.DOMElement<P, T>
-  >;
-}
-export type HTMLFactoryUnwrappedReturnType = ReturnType<
-  typeof HTMLFactoryUnwrapped extends infer U ? U : typeof HTMLFactoryUnwrapped
->;
-export declare const htmlFactoryGlobalHelper: HTMLFactoryUnwrappedReturnType;
-export const JSPicker = HTMLFactoryUnwrapped(<
-  typeof HTMLFactoryUnwrapped[keyof typeof HTMLFactoryUnwrapped]
->[htmlFactoryGlobalHelper]);
+    ReturnType<
+      DetailedHTMLFactory<
+        P,
+        T
+      >
+    >,
+    keyof ReturnType<DetailedHTMLFactory<
+      P,
+      T
+    >
+  >>
+) { return { ...props } as Unwrap.UnwrapPick<React.DOMElement<P, T>, keyof React.DOMElement<P, T>>};
+export type HTMLFactoryUnwrappedReturnType = ReturnType<typeof HTMLFactoryUnwrapped extends infer U ? U : typeof HTMLFactoryUnwrapped>
+export declare const htmlFactoryGlobalHelper: HTMLFactoryUnwrappedReturnType
+export declare const JSPicker: ReturnType<(typeof HTMLFactoryUnwrapped)>;
+
+
 
 export class JSXIntrinsicPropsConstruct {
   constructor(
@@ -155,7 +151,9 @@ export const DOMAttributesUnwrapped = <
   ...domAttribsProps
 }: import("react").DOMAttributes<T>) => ({ ...domAttribsProps });
 
-export declare module Unwrap {
+
+
+export declare module Unwrap  {
   interface Validator<T> {
     (
       props: { [key: string]: any },
@@ -558,3 +556,7 @@ export declare module Unwrap {
 // @ts-ignore:export-just-namespace
 
 export default Unwrap;
+declare global {
+  namespace JS{}
+}
+

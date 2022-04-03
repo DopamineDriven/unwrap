@@ -1,6 +1,9 @@
 # unwrap-react
 
-## Consume JSX.IntrinsicElement Props *Effortlessly*
+## Consume React's Props *Effortlessly*
+
+- Consume IntrinsicElements, HTMLFactories, DOMAttributes, MetaTypes...and more
+- Website ft documentation and examples coming 🔜
 
 ### This package should be installed as a Development Dependency
 
@@ -16,9 +19,86 @@ yarn add -D unwrap-react
 pnpm add -D unwrap-react
 ```
 
-## New Namespaces 🎉
+## New Namespaces stemming from the overarching `Unwrap` namespace 🎉 (v0.4.1)
 
-### `UnwrapHTMLFactory`
+### `Unwrap.UnwrapHTMLFactory`
+
+- Access `key`, `type`, `props`, and `ref` in an instant with this subnamespace
+- use the `htmlFactoryGlobalHelper` to expedite this process (JS friendly as well)
+
+```tsx
+    export declare const htmlFactoryGlobalHelper: HTMLFactoryUnwrappedReturnType;
+    /**
+      const Unwrap.UnwrapHTMLFactory.htmlFactoryGlobalHelper: Unwrappable.UnwrapPick<React.DOMElement<Pick<Unwrappable.HTMLAttributesUnion<Pick<Unwrappable.HTMLElementUnion, "slot" | "style" | "title" | "addEventListener" | "removeEventListener" | "accessKey" | "accessKeyLabel" | "autocapitalize" | ... 277 more ... | "focus">>, "slot" | ... 252 more ... | "onTransitionEndCapture">, Pick<...>>, keyof React.DOMElement<...>>
+    */
+   const exampleHtmlFactoryConsumer = Unwrap.UnwrapHTMLFactory.htmlFactoryGlobalHelper.props.onCompositionStart
+
+   /**
+      onCompositionStart?: React.CompositionEventHandler<Pick<Unwrappable.HTMLElementUnion, "slot" | "style" | "title" | "addEventListener" | "removeEventListener" | "accessKey" | "accessKeyLabel" | "autocapitalize" | ... 277 more ... | "focus">> | undefined
+   */
+
+
+
+```
+
+### `Unwrap.UnwrapDOM`
+
+- this helper type provides all `on-` prefixed DOMEventHandler methods sans `children` and `dangerouslySetInnerHtml` (ReactNode & {__html: string}, respectively)
+- 162 total DOMEvent-related props to access out of the box with a simple const
+
+```tsx
+const onChangeEventHandler = Unwrap.UnwrapDOM.JSHelperDOMAttributes.onChange //...navigate to node_modules/unwrap-react/dom-attribs.d.ts to see that this component does support all SVG/HTML React Components that use various events natively 
+```
+
+### `Unwrap.UnwrapJS`
+
+- This namespace is oriented towards non-typescript React users
+- Some useful declarations from this namespace include:
+
+```ts
+const Unwrap.UnwrapJS.JSXIntrinsicElementsDestructured: {
+    a?: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> | undefined;
+    abbr?: React.DetailedHTMLProps<...> | undefined;
+    ... 172 more ...;
+    view?: React.SVGProps<...> | undefined;
+}
+
+
+```
+
+- Which can be used as follows:
+
+```ts
+import Unwrap from "unwrap-react";
+/**
+ * the `textPath.arabicForm` optional chain has the following property definition at its terminal `arabicForm` value:
+ * React.SVGAttributes<SVGTextPathElement>.arabicForm?: "initial" | "medial" | "terminal" | "isolated" | undefined
+*/
+const arabicForm = Unwrap.UnwrapJS.JSXIntrinsicElementsDestructured?.textPath?.arabicForm;
+
+/**
+ * `JSXIntrinsicElementsRequired` recursively requires all mapped props be stripped of conditional signs `?` as follows:
+ 
+ *  `const JsxIntrisnicElementsRequired: {
+      [P in keyof typeof JSXIntrinsicElementsDestructured]-?: Exclude<typeof JSXIntrinsicElementsDestructured[P], undefined>;
+    };`
+* This is great for destructuring what you need and only what you need -- 
+*/
+
+const {
+  a,
+  abbr,
+  address,
+  animate,
+  animateMotion,
+  animateTransform,
+  area,
+  article,
+  aside,
+  audio
+} = Unwrap.UnwrapJS.JsxIntrisnicElementsRequired;
+
+```
 
 ### New v0.4.1 -- `DOMAttributesUnwrapped`
 

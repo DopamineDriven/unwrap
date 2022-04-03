@@ -6,7 +6,8 @@
   "files": [
     "index.ts",
     "unwrap.ts",
-    "js-helpers.ts"
+    "js-helpers.ts",
+    "html-factory.ts"
   ],
   "types": "dist/**/*.d.ts",
   "repository": {
