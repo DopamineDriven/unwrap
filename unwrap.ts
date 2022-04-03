@@ -54,8 +54,7 @@ import type {
   TimeHTMLAttributes,
   TrackHTMLAttributes,
   VideoHTMLAttributes,
-  WebViewHTMLAttributes,
-  DetailedReactHTMLElement
+  WebViewHTMLAttributes
 } from "react";
 
 export const IntrinsicComprehensiveRequired = ({
@@ -102,19 +101,31 @@ export interface SelectTargetedElementOOP
 
 export type OOElementSelection = Required<SelectTargetedElementOOP>;
 
-/**@private */
-export const HTMLFactoryUnwrapped = (
-  props: Unwrap.UnwrapPick<
-    ReturnType<DetailedHTMLFactory<
-      Unwrap.HTMLAttributesUnion<Unwrap.HTMLElementUnion>,
-      Unwrap.HTMLElementUnion
-    >>,
-    keyof DetailedHTMLFactory<
-      Unwrap.HTMLAttributesUnion<Unwrap.HTMLElementUnion>,
-      Unwrap.HTMLElementUnion
-    >
+export function HTMLFactoryUnwrapped<
+  T extends Pick<Unwrap.HTMLElementUnion, keyof Unwrap.HTMLElementUnion>,
+  P extends Pick<
+    Unwrap.HTMLAttributesUnion<T>,
+    keyof Unwrap.HTMLAttributesUnion<T>
   >
-) => props;
+>(
+  props: Unwrap.UnwrapPick<
+    ReturnType<DetailedHTMLFactory<P, T>>,
+    keyof ReturnType<DetailedHTMLFactory<P, T>>
+  >
+) {
+  return { ...props } as Unwrap.UnwrapPick<
+    React.DOMElement<P, T>,
+    keyof React.DOMElement<P, T>
+  >;
+}
+export type HTMLFactoryUnwrappedReturnType = ReturnType<
+  typeof HTMLFactoryUnwrapped extends infer U ? U : typeof HTMLFactoryUnwrapped
+>;
+export declare const htmlFactoryGlobalHelper: HTMLFactoryUnwrappedReturnType;
+export const JSPicker = HTMLFactoryUnwrapped(<
+  typeof HTMLFactoryUnwrapped[keyof typeof HTMLFactoryUnwrapped]
+>[htmlFactoryGlobalHelper]);
+
 export class JSXIntrinsicPropsConstruct {
   constructor(
     public consumeJsxComprehensive: typeof IntrinsicComprehensiveConditional
@@ -137,6 +148,12 @@ export class JSXIntrinsicPropsConstruct {
     return { ...props };
   }
 }
+
+export const DOMAttributesUnwrapped = <
+  T extends import("react").DOMAttributes<{ [P in keyof T]?: T[P] }>
+>({
+  ...domAttribsProps
+}: import("react").DOMAttributes<T>) => ({ ...domAttribsProps });
 
 export declare module Unwrap {
   interface Validator<T> {
@@ -222,8 +239,8 @@ export declare module Unwrap {
     OmitRecursiveOptionalRecursionAgent<
       RecursiveOptional<JSX.IntrinsicElements>
     >
-      >) => typeof jsxProps;
-  
+  >) => typeof jsxProps;
+
   interface HTMLFactoryExhaustive {
     htmlFactory: Unwrap.UnwrapPick<
       ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>,
@@ -231,9 +248,9 @@ export declare module Unwrap {
         Unwrap.HTMLAttributesUnion<Unwrap.HTMLElementUnion>,
         Unwrap.HTMLElementUnion
       >
-    >
-  } 
-  
+    >;
+  }
+
   interface UnwrapInterface {
     ReactRecursiveUnwrapped: <
       T extends keyof JSX.IntrinsicElements extends Record<keyof T, infer U>
@@ -256,7 +273,9 @@ export declare module Unwrap {
       >
     ) => ReturnType<typeof props>;
   }
-
+  type DOMAttributesUnwrappedReturned = ReturnType<
+    typeof DOMAttributesUnwrapped
+  >;
   type ReactUnwrapped<
     T extends keyof ReturnType<
       Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
@@ -273,17 +292,16 @@ export declare module Unwrap {
     ...props
   }: ExposedJSXIntrinsicElements) => {
     [P in keyof typeof props]?: typeof props[P];
-    };
-  
+  };
+
   function IntrinsicComprehensiveRequired({
     ...props
   }: {
     [P in keyof ReturnType<
       Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
     >]-?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>[P];
-    }): (typeof props)[keyof typeof props];
-  
-  
+  }): typeof props[keyof typeof props];
+
   type ImplementUnwrapReact<
     _implements = (
       props: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
@@ -298,7 +316,7 @@ export declare module Unwrap {
     >]: { [L in keyof R]: R[L] };
   };
 
-  type HTMLElementUnion =
+  export type HTMLElementUnion =
     | HTMLAnchorElement
     | HTMLAreaElement
     | HTMLAudioElement
@@ -364,7 +382,7 @@ export declare module Unwrap {
     | HTMLVideoElement
     | HTMLWebViewElement;
 
-  type HTMLAttributesUnion<T> =
+  export type HTMLAttributesUnion<T> =
     | HTMLAttributes<T>
     | AllHTMLAttributes<T>
     | AnchorHTMLAttributes<T>
@@ -538,4 +556,5 @@ export declare module Unwrap {
 // map out the children props of each recursed JSX.IntrinsicElement via
 // an additional round of conditional recursion for type deepening
 // @ts-ignore:export-just-namespace
+
 export default Unwrap;

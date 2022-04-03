@@ -40,7 +40,7 @@
       "isolatedModules": true,
       "incremental": true,
     },
-    "include": [".", "index.tsx", "unwrap.ts", "package.json", "index.ts"],
+    "include": [".", "index.tsx", "unwrap.ts", "package.json", "index.ts", "dom-attribs.ts"],
     "exclude": ["dist", "build", "node_modules"]
   }
   

@@ -16,6 +16,20 @@ yarn add -D unwrap-react
 pnpm add -D unwrap-react
 ```
 
+## New Namespaces 🎉
+
+### `UnwrapHTMLFactory`
+
+### New v0.4.1 -- `DOMAttributesUnwrapped`
+
+```ts
+export const DOMAttributesUnwrapped = <
+  T extends import("react").DOMAttributes<{ [P in keyof T]?: T[P] }>
+>({
+  ...domAttribsProps
+}: import("react").DOMAttributes<T>) => ({ ...domAttribsProps });
+```
+
 ---
 
 ## JS-Only-Devs -- New JS-Friendly Helpers

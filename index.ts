@@ -1,11 +1,6 @@
 import * as React from "react";
-import JsxHelper, {
-  JsHelperElementsFunc,
-  JsHelperReturnForExport,
-  JsxComprehensiveConditional
-} from "./js-helpers";
-export { default as JsxHelper } from "./js-helpers";
-export {JsHelperElementsFunc, JsxComprehensiveConditional };
-export type { JsHelperReturnForExport };
-import Unwrap from "./unwrap";
+export { default as UnwrapHTMLFactory } from "./html-factory";
+export { default as UnwrapDOM } from "./dom-attribs";
+export { default as UnwrapJS } from "./js-helpers";
+import { Unwrap } from "./unwrap";
 export default Unwrap;
