@@ -63,16 +63,3 @@ export namespace Unwrap {
   }
 }
 export default Unwrap.UnwrapJS;
-
-const {
-  a,
-  abbr,
-  address,
-  animate,
-  animateMotion,
-  animateTransform,
-  area,
-  article,
-  aside,
-  audio
-} = Unwrap.UnwrapJS.JsxIntrisnicElementsRequired;

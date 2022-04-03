@@ -60,4 +60,3 @@ export const { key, props, type, ref } = Unwrap.UnwrapHTMLFactory.HTMLUnwrapped(
 );
 
 export default Unwrap.UnwrapHTMLFactory;
-Unwrap.UnwrapHTMLFactory.htmlFactoryGlobalHelper.props.onCompositionStart

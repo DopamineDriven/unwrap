@@ -440,14 +440,8 @@ export declare module Unwrap  {
     T extends HTMLAttributesUnion<H>
   > = {
     [L in keyof DetailedHTMLFactory<T, H>]?: DetailedHTMLProps<T, H>[L];
-  }; // type UnwrapHtmlUnion<
-  //   H extends HTMLElementUnion,
-  //   T extends DetailedHTMLFactory<HTMLAttributesUnion<H>, H>
-  // > = {
-  //     [L in keyof T]?: Exclude<T[L], undefined> extends DetailedReactHTMLElement<DetailedHTMLProps<HTMLAttributesUnion<{[W in keyof H]: H[W]}>, H>, H>
-  // };
-  // function unwrapHtmlTest(props: { [P in keyof DetailedHTMLFactory<HTMLAttributesUnion<HTMLElementUnion>, HTMLElementUnion>]: DetailedHTMLFactory<HTMLAttributesUnion<HTMLElementUnion>, HTMLElementUnion>[DetailedHTMLFactory<HTMLAttributesUnion<HTMLElementUnion>, HTMLElementUnion>P]] }): typeof props;
-
+    };
+  
   type SvgElementUnion =
     | SVGAElement
     | SVGAnimateElement
