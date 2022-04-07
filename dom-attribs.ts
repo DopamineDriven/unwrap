@@ -2,36 +2,36 @@ import { DOMAttributes } from "react";
 
 export namespace Unwrap {
   export declare module UnwrapDOM {
-    const DOMAttributesUnwrapped: <
+   export const DOMAttributesUnwrapped: <
       T extends import("react").DOMAttributes<{ [P in keyof T]: T[P] }>
     >({
       ...domAttribsProps
     }: import("react").DOMAttributes<T>) => typeof domAttribsProps;
-    const DOMAttributesExposed: <
+   export const DOMAttributesExposed: <
       T extends DOMAttributes<{ [P in keyof T]-?: T[P] }>
     >({
       ...y
     }: DOMAttributes<T>) => typeof y;
-    type InferDomAttributesExposedReturnType = ReturnType<
+   export type InferDomAttributesExposedReturnType = ReturnType<
       typeof DOMAttributesExposed
     >;
 
-    interface DOMAttributesUnwrappedReturned
+   export interface DOMAttributesUnwrappedReturned
       extends ReturnType<
         typeof DOMAttributesUnwrapped extends infer U
           ? U
           : typeof DOMAttributesUnwrapped[keyof typeof DOMAttributesUnwrapped]
       > {}
 
-    const JSDomHelper: <T extends ReturnType<typeof DOMAttributesUnwrapped>>({
+   export const JSDomHelper: <T extends ReturnType<typeof DOMAttributesUnwrapped>>({
       ...props
     }: T) => T;
 
-    const DOMAttributesDestructuredRecursively: (
+   export const DOMAttributesDestructuredRecursively: (
       props: ({...propss}: InferDomAttributesExposedReturnType) => typeof propss
     ) => ReturnType<typeof props>
 
-    type ConsumeDomAttributesConsumption = Omit<
+   export type ConsumeDomAttributesConsumption = Omit<
       ReturnType<
         typeof DOMAttributesDestructuredRecursively extends infer U
           ? U
@@ -40,12 +40,12 @@ export namespace Unwrap {
       "undefined"
     >;
 
-    const JSHelperDOMAttributes: Exclude<
+   export const JSHelperDOMAttributes: Exclude<
       ReturnType<typeof JSDomHelper>,
       undefined
     >;
 
-    const {
+   export const {
       ...JSHelperDOMAttributesDestructured
     }: {
       [P in keyof ReturnType<
@@ -57,7 +57,7 @@ export namespace Unwrap {
         : { [W in keyof P]: P[W] };
     };
 
-    const DOMAttribsAutoPhagocytosis: <
+   export const DOMAttribsAutoPhagocytosis: <
       T extends typeof UnwrapDOM.DOMAttributesExposed extends infer U
         ? U
         : typeof UnwrapDOM.DOMAttributesExposed
@@ -65,11 +65,11 @@ export namespace Unwrap {
       props: T
     ) => ReturnType<typeof props>;
 
-    type UnwrapDomAttribsAutoPhagocytosis = ReturnType<
+   export type UnwrapDomAttribsAutoPhagocytosis = ReturnType<
       typeof DOMAttribsAutoPhagocytosis
     >;
 
-    const DOMAttribsAutoPhagocytosisGlobal: UnwrapDomAttribsAutoPhagocytosis;
+   export const DOMAttribsAutoPhagocytosisGlobal: UnwrapDomAttribsAutoPhagocytosis;
   }
 }
 

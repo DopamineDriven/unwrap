@@ -34,30 +34,30 @@ export namespace Unwrap {
       ...y
     }: DOMAttributes<T>) => typeof y | typeof y[];
 
-    const DOMAttributesUnwrapped: <
+    export const DOMAttributesUnwrapped: <
       T extends DOMAttributes<{ [P in keyof T]?: T[P] }>
     >({
       ...y
-    }: DOMAttributes<T>) => typeof y;
-    type inferReturn = ReturnType<typeof DOMAttributesUnwrapped>;
+    }: DOMAttributes<T>) => typeof y | typeof y[];
+   export type inferReturn = ReturnType<typeof DOMAttributesUnwrapped>;
 
-    const DOMAttribsJSHelper: ({
+    export const DOMAttribsJSHelper: ({
       ...props
     }: ReturnType<
       typeof import("./unwrap").DOMAttributesUnwrapped
     >) => typeof props;
 
-    const ElementHelper: ReturnType<typeof ExtendJSXIntrinsicElementsRequired>;
+   export const ElementHelper: ReturnType<typeof ExtendJSXIntrinsicElementsRequired>;
 
-    const pickType: Required<
+   export const pickType: Required<
       Pick<typeof ElementHelper, `${keyof typeof ElementHelper}`>
     >;
 
-    const JSHelperPickElement: (
+   export const JSHelperPickElement: (
       props: Pick<typeof pickType, keyof typeof pickType>
     ) => typeof props;
 
-    const JSHelperElementProperties: ({
+   export const JSHelperElementProperties: ({
       ...props
     }: typeof JSHelperPickElement) => typeof props;
   }
