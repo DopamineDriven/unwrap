@@ -1,13 +1,14 @@
 {
   "name": "unwrap-react",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "main": "index.js",
   "description": "Consume Reacts JSX.IntrinsicElement Props Effortlessly",
   "files": [
     "index.ts",
     "unwrap.ts",
     "js-helpers.ts",
-    "html-factory.ts"
+    "html-factory.ts",
+    "dom-attribs.ts"
   ],
   "types": "dist/**/*.d.ts",
   "repository": {

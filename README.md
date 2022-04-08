@@ -82,7 +82,8 @@ const arabicForm = Unwrap.UnwrapJS.JSXIntrinsicElementsDestructured?.textPath?.a
  *  `const JsxIntrisnicElementsRequired: {
       [P in keyof typeof JSXIntrinsicElementsDestructured]-?: Exclude<typeof JSXIntrinsicElementsDestructured[P], undefined>;
     };`
-* This is great for destructuring what you need and only what you need -- 
+*
+ This is great for destructuring what you need and only what you need -- 
 */
 
 const {

@@ -213,7 +213,7 @@ export declare module Unwrap  {
     ? U
     : T;
 
-  type Depth<T> = T extends Function
+ export type Depth<T> = T extends Function
     ? T
     : T extends Array<infer U>
     ? DepthArr<U>
@@ -221,13 +221,13 @@ export declare module Unwrap  {
     ? DepthObj<T>
     : T | undefined;
 
-  interface DepthArr<T> extends Array<Depth<T>> {}
+ export interface DepthArr<T> extends Array<Depth<T>> {}
 
-  type DepthObj<T> = {
+ export type DepthObj<T> = {
     [P in keyof T]?: Depth<T[P]>;
   };
 
-  const ReturnExposeIntrinsicElements: <
+export const ReturnExposeIntrinsicElements: <
     T extends keyof JSX.IntrinsicElements extends Record<keyof T, infer U>
       ? Record<keyof U, U>
       : Record<keyof T, T>
@@ -239,7 +239,7 @@ export declare module Unwrap  {
     >
   >) => typeof jsxProps;
 
-  interface HTMLFactoryExhaustive {
+ export interface HTMLFactoryExhaustive {
     htmlFactory: Unwrap.UnwrapPick<
       ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>,
       keyof DetailedHTMLFactory<
@@ -249,7 +249,7 @@ export declare module Unwrap  {
     >;
   }
 
-  interface UnwrapInterface {
+export interface UnwrapInterface {
     ReactRecursiveUnwrapped: <
       T extends keyof JSX.IntrinsicElements extends Record<keyof T, infer U>
         ? Record<keyof U, U>
@@ -271,28 +271,28 @@ export declare module Unwrap  {
       >
     ) => ReturnType<typeof props>;
   }
-  type DOMAttributesUnwrappedReturned = ReturnType<
+ export type DOMAttributesUnwrappedReturned = ReturnType<
     typeof DOMAttributesUnwrapped
   >;
-  type ReactUnwrapped<
-    T extends keyof ReturnType<
+ export type ReactUnwrapped<
+    T extends  ReturnType<
       Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
     >
   > = {
-    [P in T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>[P];
+    [P in keyof T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
   };
 
-  type ExposedJSXIntrinsicElements = ReturnType<
+ export type ExposedJSXIntrinsicElements = ReturnType<
     Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
   >;
 
-  const IntrinsicComprehensiveConditional: ({
+ export const IntrinsicComprehensiveConditional: ({
     ...props
   }: ExposedJSXIntrinsicElements) => {
     [P in keyof typeof props]?: typeof props[P];
   };
 
-  function IntrinsicComprehensiveRequired({
+ export function IntrinsicComprehensiveRequired({
     ...props
   }: {
     [P in keyof ReturnType<
@@ -300,7 +300,7 @@ export declare module Unwrap  {
     >]-?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>[P];
   }): typeof props[keyof typeof props];
 
-  type ImplementUnwrapReact<
+ export type ImplementUnwrapReact<
     _implements = (
       props: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
     ) => {
@@ -435,14 +435,14 @@ export declare module Unwrap  {
     | VideoHTMLAttributes<T>
     | WebViewHTMLAttributes<T>;
 
-  type UnwrapHtmlUnion<
+  export type UnwrapHtmlUnion<
     H extends HTMLElementUnion,
     T extends HTMLAttributesUnion<H>
   > = {
     [L in keyof DetailedHTMLFactory<T, H>]?: DetailedHTMLProps<T, H>[L];
     };
   
-  type SvgElementUnion =
+  export type SvgElementUnion =
     | SVGAElement
     | SVGAnimateElement
     | SVGAngle
@@ -528,7 +528,7 @@ export declare module Unwrap  {
     | SVGUseElement
     | SVGViewElement;
 
-  type UnwrapSvgUnion<
+export type UnwrapSvgUnion<
     T extends SvgElementUnion,
     P extends keyof SVGProps<T>
   > = {
@@ -550,7 +550,3 @@ export declare module Unwrap  {
 // @ts-ignore:export-just-namespace
 
 export default Unwrap;
-declare global {
-  namespace JS{}
-}
-
