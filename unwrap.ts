@@ -279,7 +279,7 @@ export interface UnwrapInterface {
       Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
     >
   > = {
-    [P in T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
+    [P in T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>[P]
   };
 
  export type ExposedJSXIntrinsicElements = ReturnType<
