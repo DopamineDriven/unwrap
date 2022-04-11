@@ -1,6 +1,6 @@
 {
   "name": "unwrap-react",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "main": "index.js",
   "description": "Consume Reacts JSX.IntrinsicElement Props Effortlessly",
   "files": [
@@ -34,7 +34,7 @@
     "typescript": "^4.6.3"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.0.0 || ^17.0.0",
+    "react-dom": "^18.0.0 || ^17.0.0"
   }
 }
