@@ -275,11 +275,11 @@ export interface UnwrapInterface {
     typeof DOMAttributesUnwrapped
   >;
  export type ReactUnwrapped<
-    T extends  ReturnType<
+    T extends keyof ReturnType<
       Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]
     >
   > = {
-    [P in keyof T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
+    [P in T]?: ReturnType<Unwrap.UnwrapInterface["ReactRecursiveUnwrapped"]>
   };
 
  export type ExposedJSXIntrinsicElements = ReturnType<
