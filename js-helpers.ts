@@ -39,7 +39,7 @@ export namespace Unwrap {
     >({
       ...y
     }: DOMAttributes<T>) => typeof y | typeof y[];
-   export type inferReturn = ReturnType<typeof DOMAttributesUnwrapped>;
+    export type inferReturn = ReturnType<typeof DOMAttributesUnwrapped>;
 
     export const DOMAttribsJSHelper: ({
       ...props
@@ -47,19 +47,17 @@ export namespace Unwrap {
       typeof import("./unwrap").DOMAttributesUnwrapped
     >) => typeof props;
 
-   export const ElementHelper: ReturnType<typeof ExtendJSXIntrinsicElementsRequired>;
+    export const ElementHelper: ReturnType<
+      typeof ExtendJSXIntrinsicElementsRequired
+    >;
 
-   export const pickType: Required<
+    export const pickType: Required<
       Pick<typeof ElementHelper, `${keyof typeof ElementHelper}`>
     >;
 
-   export const JSHelperPickElement: (
+    export const JSHelperPickElement: (
       props: Pick<typeof pickType, keyof typeof pickType>
     ) => typeof props;
-
-   export const JSHelperElementProperties: ({
-      ...props
-    }: typeof JSHelperPickElement) => typeof props;
   }
 }
 export default Unwrap.UnwrapJS;

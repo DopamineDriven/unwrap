@@ -102,23 +102,8 @@ export interface SelectTargetedElementOOP
 
 export type OOElementSelection = Required<SelectTargetedElementOOP>;
 
-export function HTMLFactoryUnwrapped<T extends Pick<Unwrap.HTMLElementUnion, keyof Unwrap.HTMLElementUnion>, P extends Pick<Unwrap.HTMLAttributesUnion<T>, keyof Unwrap.HTMLAttributesUnion<T>>>(
-  props: Unwrap.UnwrapPick<
-    ReturnType<
-      DetailedHTMLFactory<
-        P,
-        T
-      >
-    >,
-    keyof ReturnType<DetailedHTMLFactory<
-      P,
-      T
-    >
-  >>
-) { return { ...props } as Unwrap.UnwrapPick<React.DOMElement<P, T>, keyof React.DOMElement<P, T>>};
-export type HTMLFactoryUnwrappedReturnType = ReturnType<typeof HTMLFactoryUnwrapped extends infer U ? U : typeof HTMLFactoryUnwrapped>
-export declare const htmlFactoryGlobalHelper: HTMLFactoryUnwrappedReturnType
-export declare const JSPicker: ReturnType<(typeof HTMLFactoryUnwrapped)>;
+
+
 
 
 
@@ -128,18 +113,6 @@ export class JSXIntrinsicPropsConstruct {
   ) {}
   ComprehensiveConditional(
     props: ReturnType<typeof IntrinsicComprehensiveConditional>
-  ) {
-    return { ...props };
-  }
-
-  ExplicitConditional(
-    props: Unwrap.UnwrapPick<
-      ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>,
-      keyof DetailedHTMLFactory<
-        Unwrap.HTMLAttributesUnion<Unwrap.HTMLElementUnion>,
-        Unwrap.HTMLElementUnion
-      >
-    >
   ) {
     return { ...props };
   }
@@ -243,9 +216,8 @@ export const ReturnExposeIntrinsicElements: <
     htmlFactory: Unwrap.UnwrapPick<
       ReturnType<typeof Unwrap.IntrinsicComprehensiveRequired>,
       keyof DetailedHTMLFactory<
-        Unwrap.HTMLAttributesUnion<Unwrap.HTMLElementUnion>,
-        Unwrap.HTMLElementUnion
-      >
+        HTMLAttributes<HTMLElement>,
+HTMLElement      >
     >;
   }
 
@@ -436,8 +408,8 @@ export interface UnwrapInterface {
     | WebViewHTMLAttributes<T>;
 
   export type UnwrapHtmlUnion<
-    H extends HTMLElementUnion,
-    T extends HTMLAttributesUnion<H>
+    H extends HTMLElement,
+    T extends HTMLAttributes<H>
   > = {
     [L in keyof DetailedHTMLFactory<T, H>]?: DetailedHTMLProps<T, H>[L];
     };
